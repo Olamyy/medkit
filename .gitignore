@@ -11,3 +11,8 @@ __pycache__/
 # due to using tox and pytest
 .tox
 .cache
+.idea/dataSources/75b3d45e-1616-491d-8eee-5f0773599912/_src_/
+.idea/dataSources/75b3d45e-1616-491d-8eee-5f0773599912/_staging_/
+.idea/dataSources/b42d7377-be39-484c-8aa6-9a7a8eea6cf3/_src_/
+.idea/dataSources/b42d7377-be39-484c-8aa6-9a7a8eea6cf3/_staging_/
+.idea
