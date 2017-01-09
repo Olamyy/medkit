@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="dbSrc:///45b34ae4/75b3d45e-1616-491d-8eee-5f0773599912" dialect="MySQL" />
+    <file url="dbSrc:///45b34ae4/b42d7377-be39-484c-8aa6-9a7a8eea6cf3" dialect="MySQL" />
+  </component>
+</project>
