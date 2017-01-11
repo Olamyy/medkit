@@ -145,3 +145,5 @@ class UrlEngine:
 
     def _write_to_csv(self, filename=None):
         pass
+
+test = DatabaseEngine(user="root", host="localhost", password="tests", db_name="blablabla")
