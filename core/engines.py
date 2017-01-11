@@ -1,7 +1,12 @@
 import os
+from urllib.error import URLError
+
 import dataset
 from subprocess import getoutput
-from core.errors import InvalidFreezeFileError, InvalidQueryError, InvalidFileExtension, InvalidUrlError
+
+from bs4 import BeautifulSoup
+
+from core.errors import InvalidFreezeFileError, InvalidQueryError, InvalidFileExtension, InvalidUrlError, CrawlError
 from urllib.request import urlopen
 
 
@@ -75,16 +80,16 @@ class FileEngine:
 
 
 class UrlEngine:
-    def __int__(self, **kwargs):
+    def __init__(self, **kwargs):
         self.url = kwargs.get('url', None)
         if self._url_exists():
-            self.crawl_url()
+            self._crawl_url()
         else:
             raise InvalidUrlError("The url '{0}' is not valid.".format(self.url))
 
     @staticmethod
     def _http_add_remove(url):
-        http = '.http://'
+        http = 'http://'
         if url.startswith(http):
             return url
         else:
@@ -93,10 +98,50 @@ class UrlEngine:
 
     def _url_exists(self):
         url = self._http_add_remove(self.url)
+        print(url)
         if (urlopen(url).code / 100) >= 4:
             return False
         else:
             return True
 
-    def crawl_url(self):
+    def _crawl_url(self):
         url = self.url
+        try:
+            resp = urlopen(url)
+        except URLError as error:
+            raise CrawlError("An error occurred ... Source: {0}".format(error))
+        soup = BeautifulSoup(resp.read())
+
+        # Get table
+        try:
+            table = soup.find('table')
+        except AttributeError as error:
+            raise CrawlError("No tables found ... Source: {0}".format(error))
+
+        # Get rows
+        try:
+            rows = table.find_all('tr')
+        except AttributeError as error:
+            raise CrawlError("No rows found .... Source: {0}".format(error))
+
+        # Get data
+        table_data = self._parse_rows(rows)
+
+        # Print data
+        for i in table_data:
+            print('\t'.join(i))
+
+    def _parse_rows(self, rows):
+        results = []
+        for row in rows:
+            table_headers = row.find_all('th')
+            if table_headers:
+                results.append([headers.get_text() for headers in table_headers])
+
+            table_data = row.find_all('td')
+            if table_data:
+                results.append([data.get_text() for data in table_data])
+        return results
+
+    def _write_to_csv(self, filename=None):
+        pass

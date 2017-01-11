@@ -32,3 +32,11 @@ class InvalidUrlError(JabbError):
 
     """
     pass
+
+
+class CrawlError(JabbError):
+    """
+
+
+
+    pass"""
