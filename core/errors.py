@@ -27,7 +27,7 @@ class InvalidFileExtension(JabbError):
     pass
 
 
-class InvalidURLError(JabbError):
+class InvalidUrlError(JabbError):
     """
 
     """

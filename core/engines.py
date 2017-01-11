@@ -1,7 +1,7 @@
 import os
 import dataset
 from subprocess import getoutput
-from core.errors import InvalidFreezeFileError, InvalidQueryError, InvalidFileExtension, InvalidURLError
+from core.errors import InvalidFreezeFileError, InvalidQueryError, InvalidFileExtension, InvalidUrlError
 from urllib.request import urlopen
 
 
@@ -78,11 +78,12 @@ class UrlEngine:
     def __int__(self, **kwargs):
         self.url = kwargs.get('url', None)
         if self._url_exists():
-            self._validate_url()
+            self.crawl_url()
         else:
-            raise InvalidURLError("The url '{0}' is not valid.".format(self.url))
+            raise InvalidUrlError("The url '{0}' is not valid.".format(self.url))
 
-    def _http_add_remove(self, url):
+    @staticmethod
+    def _http_add_remove(url):
         http = '.http://'
         if url.startswith(http):
             return url
@@ -97,5 +98,5 @@ class UrlEngine:
         else:
             return True
 
-    def _validate_url(self):
-        pass
+    def crawl_url(self):
+        url = self.url
