@@ -1,11 +1,8 @@
 import os
 from urllib.error import URLError
-
 import dataset
 from subprocess import getoutput
-
 from bs4 import BeautifulSoup
-
 from core.errors import InvalidFreezeFileError, InvalidQueryError, InvalidFileExtension, InvalidUrlError, CrawlError
 from urllib.request import urlopen
 
@@ -90,7 +87,8 @@ class UrlEngine:
     @staticmethod
     def _http_add_remove(url):
         http = 'http://'
-        if url.startswith(http):
+        https = 'https://'
+        if url.startswith(http) or url.startswith(https):
             return url
         else:
             url = "{0}{1}".format(http, url)
@@ -146,4 +144,4 @@ class UrlEngine:
     def _write_to_csv(self, filename=None):
         pass
 
-test = DatabaseEngine(user="root", host="localhost", password="tests", db_name="blablabla")
+# test = UrlEngine(url="https://www.premierleague.com/stats")
