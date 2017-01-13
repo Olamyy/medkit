@@ -1,12 +1,7 @@
 Medkit
 =======================
 
-Medkit is a python library that utilises a combination of a, b, c and x,
-in analyzing medical data.
-The data to be analyzed could be in any of:
-csv
-
+Medkit is a python library that analyses medical data/images. The data formats supported now are XRAYS, other scans and any other textual data format.
 ----
 
-This is the README file for the project.
 
